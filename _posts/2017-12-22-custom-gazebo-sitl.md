@@ -1,9 +1,9 @@
 ---
-Custom SITL Solutions for Gazebo
+title: Custom SITL Solutions for Gazebo
 ---
 
 Gazebo is a powerful high fidelity simulator. As we discussed in our previous
-[post]({% post_url 2017-8-22-gazebo-sitl.md %}) Betaflight can interact with
+[post]({% post_url 2017-8-22-gazebo-sitl %}) Betaflight can interact with
 Gazebo to create a SITL testing environment. However how things currently exist,
 Betaflight is reusing Arducopters Gazebo plugin in and models. In this post well
 discuss the methods to take to create your own SITL system.
@@ -22,8 +22,9 @@ complex environment to use during simulation, or do load a different aircraft
 model this is where we do it. First lets get
 the source for the current SITL world, then well modify it from there.
 
-Fork then clone or download the Gazebo repo [https://bitbucket.org/osrf/gazebo](https://bitbucket.org/osrf/gazebo)
-.
+Fork then clone or download the Gazebo repo
+[https://bitbucket.org/osrf/gazebo](https://bitbucket.org/osrf/gazebo).
+
 Copy `worlds/iris_arducopter_demo.world` to your workspace in a directory called
 `worlds` or `resources`. Open
 it with your favorite text editor. This world file is an SDF file which is an XML to describe
