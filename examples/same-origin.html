@@ -1,0 +1,64 @@
+<html><head>
+
+		<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+		</head><body>
+		<h1>Page Loaded in Iframe via src attribute</h1>
+		<iframe id="webpage" src="http://www.wfk.io"></iframe>
+		<h1>Page loaded dynamically via JS</h1>
+		<iframe id="internal" width="800" height="400" src=""></iframe>
+
+		<script type="text/javascript">
+			/**
+			 * Add if needed
+			 */
+			function add_base_url(origin, els, tar_attr){
+				//If no protocol specified then origin is null on anchors
+				var base_a = $("<a>", {href:origin})[0];
+				for (var i=0; i<els.length; i++){
+					var el =	$(els[i]);
+					var val = $(els[i]).attr(tar_attr);
+					if (!val){
+						continue;
+					}
+					var a = $("<a>", {href:val})[0];
+					if (a.hostname == ""){
+						if (val.substring(0,2) != "//"){
+							console.log(val + " has no hostname");
+							var full_path = base_a + val; 
+							if (val.endsWith(".css")){
+							el.attr(tar_attr, full_path);	
+							console.log("updated " + val);
+							}
+						}
+					}
+				}
+
+			
+			}
+			/*
+			From google.com
+			Cross-Origin Request Blocked: The Same Origin Policy disallows reading the remote resource at http://google.com/. (Reason: CORS header 'Access-Control-Allow-Origin' missing).1 <unknown>
+			*/
+
+			var base = "http://www.wfk.io"; //"http://blog.wfk.io";
+
+			$.ajax({
+				  url: base ,
+				    dataType: 'text',
+					  success: function(data) {
+							console.log(data)
+						  //data = data.replace("/style.css", "http://blog.wfk.io/style.css");
+						  $("#internal").attr("src", "data:text/html;charset=utf-8," + escape(data));
+						  //var src_attrs = $("audio, embed, iframe, img, input, script, source, track, video", $("#internal").contents());
+						  //add_base_url(base, src_attrs, "src");
+							$("#internal").contents().ready(function(){
+						  var href_attrs = $("link", $("#internal").contents());
+						  //var href_attrs = $("a, area, base, link", $("#internal").contents());
+						  //add_base_url(base, href_attrs, "href");
+						  console.log("Done");
+							});
+
+					}
+			});
+		</script>
+</body></html>
